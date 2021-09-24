@@ -1,0 +1,23 @@
+version: '3'
+
+services:
+  web:
+    build: ./web
+    command: python manage.py runserver 0.0.0.0:8000
+    volumes:
+      - .:/web_django
+    ports:
+      - '8000:8000'
+    depends_on:
+      - db
+  db:
+    image: mysql:5.7
+
+    environment:
+      MYSQL_DATABASE: 'sashkadb'
+      MYSQL_USER: 'sashka'
+      MYSQL_PASSWORD: 'password'
+      MYSQL_ROOT_PASSWORD: '22032001'
+    restart: always
+    volumes:
+      - ./db_django:/var/lib/mysql
